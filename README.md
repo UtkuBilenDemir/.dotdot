@@ -1,7 +1,9 @@
 # utku - dotfiles
 
 **os/cpu-architecture**: macos 12.1/arm64
+
 **terminal**: alacritty
+
 **shell**: zsh -> tmux
 
 ---
