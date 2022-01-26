@@ -9,10 +9,12 @@ opt.hlsearch = true -- highlight found searches
 opt.ignorecase = true -- ignore case in search patterns
 opt.tabstop = 4 -- 4 spaces for each tab
 opt.termguicolors = true
-opt.smartindent = false
-opt.autoindent = false
-opt.cindent = false
+-- opt.smartindent = false
+-- opt.autoindent = false
+-- opt.cindent = false
+-- opt.indentexpr = ""
 opt.textwidth = 80
 opt.mouse = "a" -- allow mouse
 
 vim.cmd'colorscheme everforest'
+

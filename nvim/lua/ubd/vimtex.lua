@@ -2,7 +2,8 @@ local g = vim.g
 
 g.vimtex_compiler_progname = 'nvr'
 g.vimtex_complete_recursive_bib = 1
--- g.vimtex_complete_enabled = 1
+g.vimtex_complete_enabled = 1
+g.vimtex_latex_indent_enabled = 0
 -- g.vimtex_quickfix_method = 'pplatex'
 g.tex_conceal = ''
 -- g.vimtex_quickfix_mode = 0

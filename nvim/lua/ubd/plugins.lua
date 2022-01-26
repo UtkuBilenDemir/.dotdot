@@ -77,11 +77,12 @@ packer.startup(function(use)
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 
-	-- Treesitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-	})
+	-- Treesitter -- Don't update automatically, tmux messes it up
+	-- use({
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	run = ":TSUpdate",
+	-- })
+    use("nvim-treesitter/nvim-treesitter")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("p00f/nvim-ts-rainbow")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
@@ -93,13 +94,14 @@ packer.startup(function(use)
     use "lervag/vimtex"
 
 	-- MISC.
-	use "jiangmiao/auto-pairs" -- auto bracket etc. pairs
+    use "jiangmiao/auto-pairs" -- auto bracket etc. pairs
 	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
 	use("akinsho/bufferline.nvim")
 	use("moll/vim-bbye")
 	use("akinsho/toggleterm.nvim")
+    use("j-hui/fidget.nvim") 
 
     -- LuaLine
     use {
