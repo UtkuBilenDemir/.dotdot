@@ -28,5 +28,5 @@
   * Hardcoding terminal name in `alacritty.yml` and `tmux.conf` does not help
     but defining it in `.zshrc` somehow helps *temporarily*.
 
-  * TODO: Right now, it is broken again without changing anything; investigate
+  * [ ] TODO: Right now, it is broken again without changing anything; investigate
     the situation.
