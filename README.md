@@ -10,9 +10,9 @@
 
 * Neovim lua config is heavily copypasted from [ChristianChiarulli's repo](https://github.com/LunarVim/Neovim-from-scratch).
 
-* Treesitter messes up the intendation. I've already disabled some of the
+* Treesitter messes up the indentation. I've already disabled some of the
   filetypes in `./nvim/lua/ubd/treesitter.lua` but it might be better to disable
-  it completely. Calling `set indentexpr` in neovim shows where the intendation
+  it completely. Calling `set indentexpr` in neovim shows where the indentation
   comes from.
 
 * tmux messes up the color spectrum of alacritty which hits neovim pretty hard.
