@@ -1,4 +1,6 @@
-export TERM=xterm-256color
+#export TERM=alacritty
+## export TERM=xterm-256color
+# export TERM=tmux-256color
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -74,7 +76,9 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+#
 
+autoload -Uz compinit && compinit
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
@@ -85,6 +89,8 @@ plugins=(git
 	fast-syntax-highlighting
 	zsh-autosuggestions
 	k
+    mac-zsh-completions
+    zsh-completions
 	)
 
 source $ZSH/oh-my-zsh.sh
@@ -123,6 +129,7 @@ source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/ubd/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
@@ -134,3 +141,20 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# PATHS
+export PATH=$PATH:/Applications/ # This doesn't do anything good???
+
+# The following lines were added by compinstall
+
+#zstyle ':completion:*' completer _list _complete _ignored _match _correct _approximate _prefix
+zstyle :compinstall filename '/Users/ubd/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+compdef _path_commands open
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

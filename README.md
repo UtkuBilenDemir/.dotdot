@@ -15,21 +15,25 @@
   it completely. Calling `set indentexpr` in neovim shows where the indentation
   comes from.
 
-* tmux messes up the color spectrum of alacritty which hits neovim pretty hard.
-  What is happening:
+* ~~tmux messes up the color spectrum of alacritty which hits neovim pretty hard.
+  What is happening:~~
 
-  * tmux doesn't recognize *alacritty* register ==> once tmux is activated
+  * ~~tmux doesn't recognize *alacritty* register ==> once tmux is activated
     alacritty will be registered either `xterm-256color`, `screen-256color` or
-    simply as `screen`.
+    simply as `screen`.~~
   
-  * Neovim will never stop complaining that `$TERM` output is different than the
-    actual register.
+  * ~~Neovim will never stop complaining that `$TERM` output is different than the
+    actual register.~~
 
-  * Hardcoding terminal name in `alacritty.yml` and `tmux.conf` does not help
-    but defining it in `.zshrc` somehow helps *temporarily*.
+  * ~~Hardcoding terminal name in `alacritty.yml` and `tmux.conf` does not help
+    but defining it in `.zshrc` somehow helps *temporarily*.~~
 
-  * [ ] TODO: Right now, it is broken again without changing anything; investigate
+  * [x] TODO: Right now, it is broken again without changing anything; investigate
     the situation.
 
-* [ ] translate ultisnips to lua
+    * Solution was simple: switch to iTerm2
+
+* [x] TODO: translate ultisnips to lua
+
+  * [Here is an amazing script that handles the translation flawlesly](https://github.com/L3MON4D3/LuaSnip/issues/201#issuecomment-950132369)
 
