@@ -2,7 +2,7 @@
 
 > **os/cpu-architecture**: macos 12.1/arm64
 > 
-> **terminal**: alacritty
+> **terminal**: ~~alacritty~~ tmux
 > 
 > **shell**: zsh -> tmux
 

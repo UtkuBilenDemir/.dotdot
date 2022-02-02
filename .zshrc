@@ -86,7 +86,8 @@ autoload -Uz compinit && compinit
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git
 	zsh-vi-mode
-	fast-syntax-highlighting
+    zsh-syntax-highlighting
+	#fast-syntax-highlighting
 	zsh-autosuggestions
 	k
     mac-zsh-completions
