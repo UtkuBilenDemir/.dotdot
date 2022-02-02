@@ -37,4 +37,8 @@
 
   * [Here is an amazing script that handles the translation flawlesly](https://github.com/L3MON4D3/LuaSnip/issues/201#issuecomment-950132369)
 
+  * [ ] TODO: I've added the translated lines into the latex snippets of
+    `friendly-snippets` but I'm pretty sure there is a better location/method
+    for this. Find it.
+
 * `tmux_line` configs are from [sainhe's dotfiles](https://github.com/sainnhe/dotfiles)
