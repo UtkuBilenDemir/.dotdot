@@ -16,5 +16,6 @@ opt.termguicolors = true
 opt.textwidth = 80
 opt.mouse = "a" -- allow mouse
 
-vim.cmd'colorscheme everforest'
+-- vim.cmd'colorscheme everforest'
+vim.cmd'colorscheme nord'
 

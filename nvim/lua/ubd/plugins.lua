@@ -52,7 +52,6 @@ packer.reset()
 packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- PACKER
 
-	use("sainnhe/everforest")
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
 
@@ -92,6 +91,10 @@ packer.startup(function(use)
 
 	-- LaTeX
     use "lervag/vimtex"
+
+    -- Colorscheme
+	use("sainnhe/everforest")
+    use("shaunsingh/nord.nvim")
 
 	-- MISC.
     use "jiangmiao/auto-pairs" -- auto bracket etc. pairs

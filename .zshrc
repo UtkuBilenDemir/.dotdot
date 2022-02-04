@@ -118,9 +118,11 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# ---------- ALIASES
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias h="history -E"
+
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -144,7 +146,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # PATHS
-export PATH=$PATH:/Applications/ # This doesn't do anything good???
+export PATH=$PATH:/Applications/ 
+export PATH=$PATH:~/bin/ 
 
 # The following lines were added by compinstall
 

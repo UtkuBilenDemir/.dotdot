@@ -1,7 +1,8 @@
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'everforest',
+    -- theme = 'everforest',
+    theme = 'nord',
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
@@ -27,4 +28,3 @@ require('lualine').setup {
   extensions = {}
   -- options = { theme = 'everforest' }
 }
-
