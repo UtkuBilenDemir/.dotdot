@@ -2,7 +2,7 @@
 
 > **os/cpu-architecture**: macos 12.1/arm64
 > 
-> **terminal**: ~~alacritty~~ iTerm2
+> **terminal**: alacritty ~~iTerm2~~
 > 
 > **shell**: zsh -> tmux
 
@@ -52,4 +52,6 @@
   * [x] TODO: Fix fig integration in tmux.
 
     * Alacritty, Kitty, tmux integrations aren't working seamless yet but
-    [this solution](https://github.com/withfig/fig/issues/26#issuecomment-1022537900) seems to work
+    [this solution](https://github.com/withfig/fig/issues/26#issuecomment-1022537900) seems to work.
+
+![](./terminal_ss.png)
