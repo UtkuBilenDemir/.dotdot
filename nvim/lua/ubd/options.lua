@@ -17,5 +17,6 @@ opt.textwidth = 80
 opt.mouse = "a" -- allow mouse
 
 -- vim.cmd'colorscheme everforest'
-vim.cmd'colorscheme nord'
+-- vim.cmd'colorscheme nord' Nord if iTerm2, everforest if Alacritty
+vim.cmd'colorscheme everforest'
 

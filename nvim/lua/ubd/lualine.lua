@@ -1,8 +1,8 @@
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    -- theme = 'everforest',
-    theme = 'nord',
+    theme = 'everforest',
+    -- theme = 'nord' -- nord if iTerm2, everforest if Alacritty
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {},
