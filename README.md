@@ -56,4 +56,4 @@
     * Alacritty, Kitty, tmux integrations aren't working seamless yet but
     [this solution](https://github.com/withfig/fig/issues/26#issuecomment-1022537900) seems to work.
 
-![](./terminal_ss.png)
+![](./kitty_setup.png)
