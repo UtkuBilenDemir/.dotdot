@@ -32,9 +32,11 @@
     the situation.
 
     * ~~~Solution was simple: switch to iTerm2~~~
-    * Alacritty now works well with tmux
-    * Kitty is also set up  with this configuration but doesn't seem appealing
-      to me yet
+    * ~~Alacritty now works well with tmux~~
+    * ~~Kitty is also set up  with this configuration but doesn't seem appealing
+      to me yet~~
+    * Alacritty+tmux struggling to point to the Conda-Env. compiler ==> moving
+      to Kitty.
 
 * [x] TODO: translate ultisnips to lua
 

@@ -18,6 +18,7 @@ require("ubd.bufferline")
 require("ubd.toggleterm")
 require("ubd.vimtex")
 require("ubd.lualine")
+require("ubd.indent-blankline")
 require"fidget".setup{}
 
 vim.cmd "au TextYankPost * silent! lua vim.highlight.on_yank()"
