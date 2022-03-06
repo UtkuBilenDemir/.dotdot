@@ -29,7 +29,7 @@
   * ~~Hardcoding terminal name in `alacritty.yml` and `tmux.conf` does not help
     but defining it in `.zshrc` somehow helps *temporarily*.~~
 
-   [x] TODO: Right now, it is broken again without changing anything; investigate
+   * [x] TODO: Right now, it is broken again without changing anything; investigate
     the situation.
 
     * ~~~Solution was simple: switch to iTerm2~~~
