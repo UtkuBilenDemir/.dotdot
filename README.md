@@ -2,7 +2,7 @@
 
 > **os/cpu-architecture**: macos 12.1/arm64
 > 
-> **terminal**: ~~alacritty ~~iTerm2~~~~ kitty
+> **terminal**: ~~alacritty iTerm2~~ kitty
 > 
 > **shell**: zsh ~~-> tmux~~ (friendship ended with tmux, now kitty integrated
 > multiplexer is my best friend)
