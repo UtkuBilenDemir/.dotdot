@@ -2,8 +2,6 @@
 export PATH="${PATH}:${HOME}/.local/bin"
 eval "$(fig init zsh pre)"
 
-
-
 #export TERM=alacritty
 ## export TERM=xterm-256color
 # export TERM=tmux-256color
@@ -125,9 +123,18 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # ---------- ALIASES
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias h="history -E"
+# alias rm='echo "This is not the command you are looking for. Use trash-put instead."; false'
+alias rm='rm -i'
+# --- trash-cli
+alias tr="trash-put"
+alias tr-e="trash-empty"
+alias tr-l="trash-list"
+alias tr-r="trash-restore"
+alias tr-remove="trash-rm"
+
+alias word="open -a Microsoft\ Word.app"
+alias excel="open -a Microsoft\ Excel.app"
 
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
@@ -168,8 +175,6 @@ compdef _path_commands open
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-
-
-
 # Fig post block. Keep at the bottom of this file.
 eval "$(fig init zsh post)"
+
