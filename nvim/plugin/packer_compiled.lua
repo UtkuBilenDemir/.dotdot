@@ -157,6 +157,11 @@ _G.packer_plugins = {
     path = "/Users/ubd/.local/share/nvim/site/pack/packer/opt/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
+  neovim = {
+    loaded = true,
+    path = "/Users/ubd/.local/share/nvim/site/pack/packer/start/neovim",
+    url = "https://github.com/rose-pine/neovim"
+  },
   ["nlsp-settings.nvim"] = {
     loaded = true,
     path = "/Users/ubd/.local/share/nvim/site/pack/packer/start/nlsp-settings.nvim",
@@ -222,6 +227,11 @@ _G.packer_plugins = {
     path = "/Users/ubd/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  ["pandoc.nvim"] = {
+    loaded = true,
+    path = "/Users/ubd/.local/share/nvim/site/pack/packer/start/pandoc.nvim",
+    url = "https://github.com/aspeddro/pandoc.nvim"
+  },
   ["plenary.nvim"] = {
     loaded = true,
     path = "/Users/ubd/.local/share/nvim/site/pack/packer/start/plenary.nvim",
@@ -276,5 +286,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

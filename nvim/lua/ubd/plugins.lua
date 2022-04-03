@@ -95,6 +95,7 @@ packer.startup(function(use)
     -- Colorscheme
     use("sainnhe/everforest")
     use("shaunsingh/nord.nvim")
+    use("rose-pine/neovim")
 
     -- LuaLine
     use {
@@ -113,6 +114,8 @@ packer.startup(function(use)
     use("akinsho/toggleterm.nvim")
     use("j-hui/fidget.nvim")
     use("lukas-reineke/indent-blankline.nvim")
+    use("aspeddro/pandoc.nvim")
+
 
     -- Zen Mode
     -- Lua

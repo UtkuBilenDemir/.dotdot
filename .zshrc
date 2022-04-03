@@ -136,6 +136,8 @@ alias tr-remove="trash-rm"
 alias word="open -a Microsoft\ Word.app"
 alias excel="open -a Microsoft\ Excel.app"
 
+alias rstudio="open -a RStudio.app"
+
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -177,4 +179,3 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Fig post block. Keep at the bottom of this file.
 eval "$(fig init zsh post)"
-

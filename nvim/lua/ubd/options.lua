@@ -20,5 +20,5 @@ opt.mouse = "a" -- allow mouse
 -- vim.cmd'colorscheme everforest'
 -- vim.cmd'colorscheme nord' Nord if iTerm2, everforest if Alacritty
 vim.g.everforest_background='hard'
-vim.cmd'colorscheme everforest'
+vim.cmd'colorscheme rose-pine'
 

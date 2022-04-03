@@ -3,7 +3,7 @@
 -- TODO: gitignore this one
 require("ubd.python")
 
-require("ubd.options")
+require("ubd.rosepine")
 require("ubd.keymaps")
 require("ubd.plugins")
 require("ubd.cmp")
@@ -19,6 +19,9 @@ require("ubd.toggleterm")
 require("ubd.vimtex")
 require("ubd.lualine")
 require("ubd.indent-blankline")
+require("ubd.options")
+
+require'pandoc'.setup()
 require"fidget".setup{}
 
 vim.cmd "au TextYankPost * silent! lua vim.highlight.on_yank()"

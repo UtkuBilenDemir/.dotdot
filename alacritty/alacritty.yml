@@ -30,7 +30,7 @@ window:
     x: 10
     y: 10
   decorations: "none"
-window.opacity: 0.95
+window.opacity: 0.5
 
 shell:
   program: /opt/homebrew/bin/zsh
