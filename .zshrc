@@ -133,6 +133,10 @@ alias tr-l="trash-list"
 alias tr-r="trash-restore"
 alias tr-remove="trash-rm"
 
+function cl {
+    builtin cd "$@" && ls -F
+    }
+
 alias word="open -a Microsoft\ Word.app"
 alias excel="open -a Microsoft\ Excel.app"
 
