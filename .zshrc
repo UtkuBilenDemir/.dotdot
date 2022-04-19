@@ -1,7 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-export PATH="${PATH}:${HOME}/.local/bin"
-eval "$(fig init zsh pre)"
-
+. "$HOME/.fig/shell/zshrc.pre.zsh"
 #export TERM=alacritty
 ## export TERM=xterm-256color
 # export TERM=tmux-256color
@@ -182,4 +180,4 @@ compdef _path_commands open
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Fig post block. Keep at the bottom of this file.
-eval "$(fig init zsh post)"
+. "$HOME/.fig/shell/zshrc.post.zsh"
