@@ -139,6 +139,8 @@ alias word="open -a Microsoft\ Word.app"
 alias excel="open -a Microsoft\ Excel.app"
 
 alias rstudio="open -a RStudio.app"
+alias spotify="open -a Spotify.app"
+alias mattermost="open -a Mattermost.app"
 
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
