@@ -10,6 +10,8 @@ local opts = { noremap = true, silent = true }
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+-- A keymap to open the explorer
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 
 ---------- NORMAL
