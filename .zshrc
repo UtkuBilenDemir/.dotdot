@@ -1,5 +1,5 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# CodeWhisperer pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
 #export TERM=alacritty
 ## export TERM=xterm-256color
 # export TERM=tmux-256color
@@ -111,6 +111,18 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+#
+# vi mode
+bindkey -v
+
+# Yank to the system clipboard
+function vi-yank-xclip {
+    zle vi-yank
+   echo "$CUTBUFFER" | pbcopy -i
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -135,14 +147,29 @@ function cl {
     builtin cd "$@" && ls -F
     }
 
+# --- Launchers
 alias word="open -a Microsoft\ Word.app"
 alias excel="open -a Microsoft\ Excel.app"
+alias teams="open -a 'Microsoft Teams (work or school).app'"
+
 
 alias rstudio="open -a RStudio.app"
 alias spotify="open -a Spotify.app"
 alias mattermost="open -a Mattermost.app"
 alias obsidian="open -a Obsidian.app"
 alias firefox="open -a Firefox.app"
+alias steam="open -a Steam.app"
+alias amethyst="open -a amethyst"
+alias zotero="open -a Zotero.app"
+alias keepass="open -a KeePassxc.app"
+alias telegram="open -a Telegram.app"
+alias signal="open -a Signal.app"
+alias hook="open -a Hook.app"
+# --- Shortcuts
+alias templates="cd /Users/ubd/Projects/templates"
+alias nvim_config="cd /Users/ubd/.config/nvim"
+alias rhizome="cd /Users/ubd/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/rhizome"
+alias packer="nvim /Users/ubd/.config/nvim/lua/ubd/packer.lua"
 
 # See the connected devices in your local network
 alias net_scan="sudo arp-scan --interface=en0 --localnet"
@@ -170,8 +197,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # PATHS
-export PATH=$PATH:/Applications/ 
-export PATH=$PATH:~/bin/ 
+export PATH=$PATH:/Applications/
+export PATH=$PATH:~/bin/
 
 # The following lines were added by compinstall
 
@@ -188,5 +215,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+
+[[ -f "$HOME/fig-export/dotfiles/dotfile.zsh" ]] && builtin source "$HOME/fig-export/dotfiles/dotfile.zsh"
+
+# CodeWhisperer post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"

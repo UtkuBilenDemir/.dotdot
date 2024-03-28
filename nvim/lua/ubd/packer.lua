@@ -94,6 +94,19 @@ packer.startup(function(use)
     -- RosePine
     use({ 'rose-pine/neovim', as = 'rose-pine' })
 
+    -- -- IDE
+    -- Quatro Notebooks
+    use{
+        {'quarto-dev/quarto-nvim'},
+        {'jmbuhr/otter.nvim'},
+    }
+    -- Python
+    -- use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' } -- Didn't
+    -- work well, since there is no ueberzug on macos
+    -- use { 'michaelb/sniprun', run = 'bash ./install.sh 1'}
+    use {'Vigemus/iron.nvim'}
+
+
     -- -- Other
     use('mbbill/undotree')
     use("tpope/vim-fugitive")
@@ -101,7 +114,48 @@ packer.startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
-
+    -- Easy soft/hard wrapper
+    use({
+        "andrewferrier/wrapping.nvim",
+        config = function()
+            require("wrapping").setup()
+        end,
+    })
+    -- Cursor movement highlighter
+    use {
+        'stonelasley/flare.nvim',
+        config = function() require('flare').setup() end
+    }
+    -- Which key??
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+--     -- Obsidian
+--     use {
+--         "epwalsh/obsidian.nvim",
+--         requires = {
+--         -- Required.
+--         {"nvim-lua/plenary.nvim"},
+--         -- Optional, for completion.
+--         {"hrsh7th/nvim-cmp"},
+--         -- Optional, for search and quick-switch functionality.
+--         {"nvim-telescope/telescope.nvim"},
+-- 
+--         -- Optional, alternative to nvim-treesitter for syntax highlighting.
+--         {"godlygeek/tabular"},
+--         {"preservim/vim-markdown"},
+--     }
+-- }
+-- 
     -- Shows html markown preview
     -- use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = "MarkdownPreview" })
 end)

@@ -34,6 +34,11 @@ vim.cmd'autocmd ColorScheme * highlight TabLineFill ctermfg=NONE ctermbg=NONE'
 vim.cmd'autocmd ColorScheme * highlight TabLine ctermfg=NONE ctermbg=NONE'
 vim.cmd'autocmd ColorScheme * highlight TabLineSel ctermfg=NONE ctermbg=NONE'
 vim.cmd'autocmd ColorScheme * highlight Title ctermfg=NONE ctermbg=NONE'
+vim.cmd'set cursorline'
+vim.cmd'hi cursorline cterm=none term=none'
+vim.cmd'autocmd WinEnter * setlocal cursorline'
+vim.cmd'autocmd WinLeave * setlocal nocursorline'
+vim.cmd'highlight CursorLine guibg=#303000 ctermbg=234'
 
 ---- Colorscheme -----------------------------------------------------------------
 -- vim.cmd'colorscheme rose-pine'
