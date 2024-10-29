@@ -1,5 +1,5 @@
-# CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+# Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 #export TERM=alacritty
 ## export TERM=xterm-256color
 # export TERM=tmux-256color
@@ -150,7 +150,7 @@ function cl {
 # --- Launchers
 alias word="open -a Microsoft\ Word.app"
 alias excel="open -a Microsoft\ Excel.app"
-alias teams="open -a 'Microsoft Teams (work or school).app'"
+alias teams="open -a 'Microsoft Teams.app'"
 
 
 alias rstudio="open -a RStudio.app"
@@ -165,6 +165,7 @@ alias keepass="open -a KeePassxc.app"
 alias telegram="open -a Telegram.app"
 alias signal="open -a Signal.app"
 alias hook="open -a Hook.app"
+alias thunderbird="open -a thunderbird.app"
 # --- Shortcuts
 alias templates="cd /Users/ubd/Projects/templates"
 alias nvim_config="cd /Users/ubd/.config/nvim"
@@ -173,6 +174,9 @@ alias packer="nvim /Users/ubd/.config/nvim/lua/ubd/packer.lua"
 
 # See the connected devices in your local network
 alias net_scan="sudo arp-scan --interface=en0 --localnet"
+
+# Personal aliases
+alias master="nvim /Users/ubd/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/rhizome/06_projects/UNI/POWI/MA/paper/paper.tex"
 
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
@@ -218,5 +222,5 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 [[ -f "$HOME/fig-export/dotfiles/dotfile.zsh" ]] && builtin source "$HOME/fig-export/dotfiles/dotfile.zsh"
 
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+# Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

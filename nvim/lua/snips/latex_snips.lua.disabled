@@ -1,0 +1,91 @@
+-- Somewhere in your Neovim startup, e.g. init.lua
+require("luasnip").config.set_config({ -- Setting LuaSnip config
+  -- Use <Tab> (or some other key if you prefer) to trigger visual selection
+  store_selection_keys = "<Tab>",
+  history = true, -- Enable snippet history
+  updateevents = "TextChanged,TextChangedI", -- Update as you type
+  enable_autosnippets = true, -- Enable auto snippets
+})
+
+local ls = require("luasnip")
+local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
+local s = ls.snippet
+local sn = ls.snippet_node
+-- local t = ls.text_node
+local i = ls.insert_node
+local d = ls.dynamic_node
+-- local extras = require("luasnip.extras")
+-- local rep = extras.rep
+--
+-- Necessary to make visuals work
+-- ----------------------------------------------------------------------------
+-- Summary: When `LS_SELECT_RAW` is populated with a visual selection, the function
+-- returns an insert node whose initial text is set to the visual selection.
+-- When `LS_SELECT_RAW` is empty, the function simply returns an empty insert node.
+local get_visual = function(args, parent)
+  if #parent.snippet.env.LS_SELECT_RAW > 0 then
+    return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
+  else -- If LS_SELECT_RAW is empty, return a blank insert node
+    return sn(nil, i(1))
+  end
+end
+
+-- ls.add_snippets("tex", {
+local snippets = {
+  s(
+    "deneme-template",
+    fmt(
+      [[
+      \input{{/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome/06_projects/UNI/latex_template}}
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+      \title{{{}}}
+      \author{{Utku B. Demir}}
+      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \begin{{document}}
+          \maketitle
+
+          {}
+
+          \printbibliography
+      \end{{document}}
+      ]],
+      {
+        i(1, "Title"),
+        i(0, "Lorem ipsum"),
+      }
+    )
+  ),
+  -- Italic
+  s(
+    { trig = "it", dscr = "Expands 'it' into LaTeX's textit{} command." },
+    fmta("\\textit{<>}", {
+      d(1, get_visual),
+    })
+  ),
+  -- Bold
+  s(
+    { trig = "bf", dscr = "Expands 'bf' into LaTeX's textbf{} command." },
+    fmta("\\textbf{<>}", {
+      d(1, get_visual),
+    })
+  ),
+  -- Cite
+  s(
+    { trig = "cite", dscr = "Expands 'cite' into LaTeX's cite{} command." },
+    fmta("\\cite{<>}", {
+      d(1, get_visual),
+    })
+  ),
+  -- Cite in parenthesis
+  s(
+    { trig = "pcite", dscr = "Expands 'pcite' into LaTeX's parencite{} command." },
+    fmta("\\parencite{<>}", {
+      d(1, get_visual),
+    })
+  ),
+}
+
+-- Add the snippets to the "tex" filetype
+ls.add_snippets("tex", snippets)

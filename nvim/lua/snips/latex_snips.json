@@ -1,0 +1,7 @@
+{
+  "uni-template": {
+    "description": "University LaTeX template",
+    "body": "\\input{\/Users\/ubd\/Library\/Mobile Documents\/iCloud~md~obsidian\/Documents\/rhizome\/06_projects\/UNI\/latex_template}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\title{${1:Title}}\n\\author{Utku B. Demir}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{document}\n    \\maketitle\n\n    ${0:Lorem ipsum}\n\n    \\printbibliography\n\\end{document}",
+    "prefix": "uni-template"
+  }
+}
