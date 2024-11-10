@@ -39,6 +39,26 @@ return {
           end
         end, { "i", "s" }),
       })
+      -- Add custom formatting to show source names in the completion menu
+      opts.formatting = {
+        fields = { "abbr", "menu", "kind" }, -- Specify fields to display
+        format = function(entry, vim_item)
+          -- Define source names for display
+          local menu_icon = {
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[Snippet]",
+            path = "[Path]",
+          }
+          vim_item.menu = menu_icon[entry.source.name] or entry.source.name
+          return vim_item
+        end,
+      }
+      -- Set window borders for the completion and documentation popups
+      opts.window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+      }
     end,
   },
 }

@@ -1,7 +1,13 @@
 return {
-  -- Add rose-pine
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
-  },
+  "L3MON4D3/LuaSnip",
+  config = function()
+    local luasnip = require("luasnip")
+
+    local s = luasnip.snippet
+    local t = luasnip.text_node
+
+    local foo = s("bar", t("baz"))
+
+    luasnip.add_snippets("all", { foo })
+  end,
 }
