@@ -45,7 +45,7 @@
   lazyvim are enough**
 
 ### On the Snippet Question
-Managing completion setup became a burden, there are way too many moving parts and not enough standardised approaches. But for anyone trying to stay afloat in this ecosystem especially with lazyvim moving from [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) to [blink.cmp](https://github.com/Saghen/blink.cmp), here is how I am surviving in current meta.
+Managing completion setup became a burden, there are way too many moving parts and not enough standardised approaches. But for anyone trying to stay afloat in this ecosystem especially with lazyvim moving from [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) to [blink.cmp](https://github.com/Saghen/blink.cmp), here is how I am surviving in the current meta.
 
 *Disclaimer: This completion/snippet setup is not optimised, and contains lots of unnecessary copy-paste because I didn't want to find out which parts of the copied lines were actually necessary. Use it if you are in a just-make-it-work-alredy mindset.*
 
