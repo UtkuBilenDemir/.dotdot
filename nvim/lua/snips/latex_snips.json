@@ -1,1 +1,23 @@
-{"pcite":{"body":"\\parencite[${1:page}]{${2:source}} ${0}","prefix":"pcite"},"side":{"body":"\\sidenote{${1:text}} ${0}","prefix":"side"},"uni-template":{"body":"\\input{\/Users\/ubd\/Library\/Mobile Documents\/iCloud~md~obsidian\/Documents\/rhizome\/06_projects\/UNI\/latex_template}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\title{${1:Title}}\n\\author{Utku B. Demir}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{document}\n    \\maketitle\n\n    ${0:Lorem ipsum}\n\n    \\printbibliography\n\\end{document}","description":"University LaTeX template","prefix":"uni-template"},"cha":{"body":"\\chapter{${1:name}} ${0}","prefix":"chap"}}
+{
+  "cha": {
+    "body": "\\chapter{${1:name}} ${0}",
+    "prefix": "chap"
+  },
+  "pcite": {
+    "body": "\\parencite[${1:page}]{${2:source}} ${0}",
+    "prefix": "pcite"
+  },
+  "pancite": {
+    "body": "\\parencite{$1} $0",
+    "prefix": "pancite"
+  },
+  "side": {
+    "body": "\\sidenote{${1:text}} ${0}",
+    "prefix": "side"
+  },
+  "uni-template": {
+    "body": "\\input{\/Users\/ubd\/Library\/Mobile Documents\/iCloud~md~obsidian\/Documents\/rhizome\/06_projects\/UNI\/latex_template}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\title{${1:Title}}\n\\author{Utku B. Demir}\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\\begin{document}\n    \\maketitle\n\n    ${0:Lorem ipsum}\n\n    \\printbibliography\n\\end{document}",
+    "description": "University LaTeX template",
+    "prefix": "uni-template"
+  }
+}
