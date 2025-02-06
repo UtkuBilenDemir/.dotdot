@@ -1,0 +1,30 @@
+return {
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        ltex = {
+          cmd = { "ltex-ls" },
+          filetypes = { "markdown", "tex", "bib", "text", "gitcommit" },
+          settings = {
+            ltex = {
+              language = "en-GB", -- Use British English
+              diagnosticSeverity = "information",
+              completionEnabled = true,
+              additionalRules = {
+                motherTongue = "en-GB", -- British English as the main language
+                languageModel = "~/ngrams/", -- Optional n-gram path
+              },
+              dictionary = {
+                ["en-GB"] = { "Neovim", "nvim", "Lua" }, -- Add custom words to avoid false positives
+              },
+              disabledRules = {
+                ["en-GB"] = { "OXFORD_SPELLING_Z_NOT_S" }, -- Example: Disable rules enforcing 'ize' over 'ise'
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}

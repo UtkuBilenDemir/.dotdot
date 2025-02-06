@@ -11,9 +11,12 @@
 return {
   "saghen/blink.cmp",
   enabled = true,
+  dependencies = {
+    "kristijanhusak/vim-dadbod-completion",
+  },
   opts = {
     sources = {
-      default = { "path", "luasnip", "lsp", "snippets", "buffer" },
+      default = { "snippets", "path", "luasnip", "lsp", "buffer" },
       providers = {
         lsp = {
           name = "lsp",

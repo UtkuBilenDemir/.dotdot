@@ -4,3 +4,5 @@
 local map = LazyVim.safe_keymap_set
 
 map("n", "s", "<Nop>", { desc = "surround", remap = true })
+
+-- LSP
