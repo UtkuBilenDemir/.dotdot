@@ -1,4 +1,4 @@
 return {
   -- disable trouble
-  --  { "Saghen/blink.cmp", enabled = false },
+  -- { "Saghen/blink.cmp", enabled = false },
 }

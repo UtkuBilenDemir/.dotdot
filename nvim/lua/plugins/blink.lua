@@ -15,6 +15,18 @@ return {
     "kristijanhusak/vim-dadbod-completion",
   },
   opts = {
+    completion = {
+      trigger = {
+        show_on_trigger_character = true,
+        show_on_accept_on_trigger_character = true,
+      },
+      list = {
+        max_items = 3,
+      },
+      documentation = {
+        auto_show_delay_ms = 500000000000,
+      },
+    },
     sources = {
       default = { "snippets", "path", "luasnip", "lsp", "buffer" },
       providers = {
