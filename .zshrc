@@ -1,6 +1,6 @@
-bindkey '^I' autosuggest-accept
+# bindkey '^I' autosuggest-accept
 # Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
+# [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 #export TERM=alacritty
 ## export TERM=xterm-256color
 # export TERM=tmux-256color
@@ -168,8 +168,9 @@ alias signal="open -a Signal.app"
 alias hook="open -a Hook.app"
 alias thunderbird="open -a thunderbird.app"
 # --- Shortcuts
-alias templates="cd /Users/ubd/Projects/templates"
+alias templates="cd /Users/ubd/wolke_i/rhizome/08_templates/"
 alias nvim_config="cd /Users/ubd/.config/nvim"
+alias dvim="vidir ." # To bulk rename directories, files
 alias rhizome="cd /Users/ubd/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/rhizome"
 alias packer="nvim /Users/ubd/.config/nvim/lua/ubd/packer.lua"
 
@@ -177,10 +178,10 @@ alias packer="nvim /Users/ubd/.config/nvim/lua/ubd/packer.lua"
 alias net_scan="sudo arp-scan --interface=en0 --localnet"
 
 # Personal aliases
-alias master="nvim /Users/ubd/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/rhizome/06_projects/UNI/POWI/MA/paper/paper.tex"
+alias master="cd /Users/ubd/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/rhizome/06_projects/UNI/POWI/MA/paper/"
 
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
-source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+# source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
+# source /opt/homebrew/opt/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -225,3 +226,6 @@ export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
 # Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+autoload -Uz compinit
+compinit
