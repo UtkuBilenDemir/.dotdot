@@ -39,7 +39,7 @@ return {
     end,
 
     picker = {
-      name = "telescope",
+      name = "telescope.nvim",
     },
 
     ui = { enable = false },
