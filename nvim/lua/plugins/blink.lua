@@ -1,13 +1,3 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/blink-cmp.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/blink-cmp.lua
-
--- completion plugin with support for LSPs and external sources that updates
--- on every keystroke with minimal overhead
-
--- https://www.lazyvim.org/extras/coding/blink
--- https://github.com/saghen/blink.cmp
--- Documentation site: https://cmp.saghen.dev/
-
 return {
   "saghen/blink.cmp",
   enabled = true,
@@ -18,9 +8,17 @@ return {
     completion = {
       ghost_text = {
         enabled = false,
-        --show_with_selection = false,
+      },
+      list = {
+        selection = {
+          -- First item is auto-selected when menu opens.
+          -- Enter accepts it. S-CR cancels menu and inserts a newline instead.
+          preselect = true,
+        },
       },
     },
+    -- mini.snippets handles expansion and tabstop navigation.
+    snippets = { preset = "mini_snippets" },
     sources = {
       default = { "snippets", "path", "lsp", "buffer" },
       providers = {
@@ -50,11 +48,8 @@ return {
           name = "snippets",
           enabled = true,
           module = "blink.cmp.sources.snippets",
-          -- preset = "luasnip",
-          score_offset = 1000,
-          opts = {
-            search_paths = { "/Users/ubd/.config/nvim/lua/snips" },
-          },
+          score_offset = 500,
+          -- mini.snippets owns the snippet list and expansion.
         },
         dadbod = {
           name = "Dadbod",
@@ -63,25 +58,15 @@ return {
         },
       },
     },
-    -- snippets = {
-    --   expand = function(snippet)
-    --     require("luasnip").lsp_expand(snippet)
-    --   end,
-    --   active = function(filter)
-    --     if filter and filter.direction then
-    --       return require("luasnip").jumpable(filter.direction)
-    --     end
-    --     return require("luasnip").in_snippet()
-    --   end,
-    --   jump = function(direction)
-    --     require("luasnip").jump(direction)
-    --   end,
-    -- },
     keymap = {
       preset = "default",
+      -- Tab / S-Tab: mini.snippets owns tabstop navigation via its own keymaps.
+      -- blink falls back so mini.snippets keymaps in mini-snippets.lua take over.
+      ["<Tab>"] = { "fallback" },
+      ["<S-Tab>"] = { "fallback" },
+      ["<CR>"] = { "accept", "fallback" },
+      ["<S-CR>"] = { "cancel", "fallback" },  -- newline without accepting
       ["<C-z>"] = { "select_and_accept", "fallback" },
-      ["<Tab>"] = { "snippet_forward", "fallback" },
-      ["<S-Tab>"] = { "snippet_backward", "fallback" },
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
       ["<C-k>"] = { "select_prev", "fallback" },

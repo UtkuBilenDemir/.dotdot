@@ -1,12 +1,19 @@
 {
+  "name": "my-snippets",
+  "description": "Custom snippets managed by nvim-scissors.",
   "contributes": {
     "snippets": [
       {
+        "path": "./tex.json",
         "language": [
-          "plaintex",
           "tex"
-        ],
-        "path": "./latex_snips.json"
+        ]
+      },
+      {
+        "path": "./markdown.json",
+        "language": [
+          "markdown"
+        ]
       }
     ]
   }

@@ -1,0 +1,12 @@
+{
+  "link": {
+    "prefix": "link",
+    "description": "[text](url)",
+    "body": "[$1]($2)"
+  },
+  "img": {
+    "prefix": "img",
+    "description": "![alt](path)",
+    "body": "![$1]($2)"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "bf": {
+    "prefix": "bf",
+    "description": "\\textbf{}",
+    "body": "\\textbf{${1:$TM_SELECTED_TEXT}}"
+  },
+  "it": {
+    "prefix": "it",
+    "description": "\\textit{}",
+    "body": "\\textit{${1:$TM_SELECTED_TEXT}}"
+  },
+  "em": {
+    "prefix": "em",
+    "description": "\\emph{}",
+    "body": "\\emph{${1:$TM_SELECTED_TEXT}}"
+  },
+  "ul": {
+    "prefix": "ul",
+    "description": "\\underline{}",
+    "body": "\\underline{${1:$TM_SELECTED_TEXT}}"
+  },
+  "cite": {
+    "prefix": "cite",
+    "description": "\\cite{}",
+    "body": "\\cite{${1:$TM_SELECTED_TEXT}}"
+  },
+  "pcite": {
+    "prefix": "pcite",
+    "description": "\\parencite[page]{source}",
+    "body": "\\parencite[$1]{$2} $0"
+  },
+  "pcite*": {
+    "prefix": "pcite*",
+    "description": "\\parencite*{citekey}",
+    "body": "\\parencite*{$1} $0"
+  },
+  "see": {
+    "prefix": "see",
+    "description": "\\parencite[see][page]{citekey}",
+    "body": "\\parencite[see][$1]{$2} $0"
+  },
+  "acite": {
+    "prefix": "acite",
+    "description": "author + parencite*",
+    "body": "\\citeauthor{$1} \\parencite*[]{$1} $0"
+  },
+  "tcite": {
+    "prefix": "tcite",
+    "description": "title + parencite*",
+    "body": "\\citetitle{$1} \\parencite*[]{$1}"
+  },
+  "side": {
+    "prefix": "side",
+    "description": "\\sidenote{}",
+    "body": "\\sidenote{${1:$TM_SELECTED_TEXT}} $0"
+  },
+  "gls": {
+    "prefix": "gls",
+    "description": "\\gls{}",
+    "body": "\\gls{$1} $0"
+  },
+  "Gls": {
+    "prefix": "Gls",
+    "description": "\\Gls{}",
+    "body": "\\Gls{$1}"
+  },
+  "glspl": {
+    "prefix": "glspl",
+    "description": "\\glspl{}",
+    "body": "\\glspl{$1} $0"
+  },
+  "ocre": {
+    "prefix": "ocre",
+    "description": "\\hlocre{}",
+    "body": "\\hlocre{$1} $0"
+  },
+  "ldots": {
+    "prefix": "...",
+    "description": "[\\ldots]",
+    "body": "[\\ldots]"
+  },
+  "url": {
+    "prefix": "url",
+    "description": "\\href{url}{text} (\\url{url})",
+    "body": "\\href{$1}{$2} (\\url{$1}) $0"
+  },
+  "sidelink": {
+    "prefix": "sidelink",
+    "description": "\\href with sidenote url",
+    "body": "\\href{$1}{\\emph{$2}}\\sidenote{\\url{$1}} $0"
+  },
+  "bg": {
+    "prefix": "bg",
+    "description": "\\begin{} ... \\end{} — generic env",
+    "body": [
+      "\\begin{$1}",
+      "\t$0",
+      "\\end{$1}"
+    ]
+  },
+  "quote": {
+    "prefix": "quote",
+    "description": "quote environment with citation",
+    "body": [
+      "\\begin{quote}",
+      "\t$1",
+      "",
+      "\\citereset",
+      "\t— \\cite[$2]{$3}",
+      "\\end{quote}",
+      "",
+      "$0"
+    ]
+  },
+  "sidequote": {
+    "prefix": "sidequote",
+    "description": "marginnote quote",
+    "body": [
+      "\t\\begin{quote}",
+      "\t\t\\scriptsize $1",
+      "\t\t— \\cite[$2]{$3}",
+      "\t\\end{quote}"
+    ]
+  },
+  "epigraph": {
+    "prefix": "epigraph",
+    "description": "epigraph with citation",
+    "body": [
+      "\\epigraph{",
+      "$1",
+      "",
+      "}{\\cite[$2]{$3}}",
+      "",
+      "$0"
+    ]
+  },
+  "orangebox": {
+    "prefix": "orangebox",
+    "description": "orangebox environment",
+    "body": [
+      "\\begin{orangebox}",
+      "\t${1:Text}",
+      "\\end{orangebox}",
+      "",
+      "$0"
+    ]
+  },
+  "commentenv": {
+    "prefix": "commentenv",
+    "description": "commentenv environment",
+    "body": [
+      "\\begin{commentenv}",
+      "\t$0",
+      "\\end{commentenv}"
+    ]
+  },
+  "todolist": {
+    "prefix": "todolist",
+    "description": "marginnote todolist",
+    "body": [
+      "\\marginnote{\\textbf{TODO}: ${1:Title}",
+      "\t\\begin{todolist}",
+      "\t\t\\item ${2:todo}",
+      "",
+      "\t\\end{todolist}",
+      "}",
+      "",
+      "$0"
+    ]
+  },
+  "marginfigure": {
+    "prefix": "marginfigure",
+    "description": "marginfigure environment",
+    "body": [
+      "\\begin{marginfigure}",
+      "\t\\includegraphics[width=\\textwidth]{$1}",
+      "\t\\caption{$2}",
+      "\t\\label{$3}",
+      "\\end{marginfigure}",
+      "",
+      "$0"
+    ]
+  },
+  "line": {
+    "prefix": "line",
+    "description": "full-width horizontal rule",
+    "body": [
+      "%NOTE: HORIZONTAL LINE",
+      "\\begin{fullwidth}",
+      "\t\\noindent\\makebox[\\linewidth]{\\rule{\\paperwidth}{0.4pt}}",
+      "\\end{fullwidth}"
+    ]
+  },
+  "uni-template": {
+    "prefix": "uni-template",
+    "description": "University LaTeX template",
+    "body": [
+      "\\input{/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome/08_templates/latex_template}",
+      "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+      "\\title{$1}",
+      "\\author{Utku B. Demir}",
+      "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+      "",
+      "\\begin{document}",
+      "    \\maketitle",
+      "    \\title{$1}",
+      "",
+      "    ${0:Lorem ipsum}",
+      "",
+      "    \\printbibliography",
+      "\\end{document}"
+    ]
+  }
+}

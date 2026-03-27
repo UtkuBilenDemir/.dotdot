@@ -24,6 +24,24 @@ return {
       },
     },
 
-    -- see below for full list of options 👇
+    templates = {
+      folder = "08_templates",
+    },
+    notes_subdir = "02_zettelkasten",
+    note_id_func = function(title)
+      return os.date("%Y%m%d-%H%M%S")
+    end,
+    disable_frontmatter = true,
+
+    -- Open URLs under cursor with the system browser
+    follow_url_func = function(url)
+      vim.fn.jobstart({ "open", url })
+    end,
+
+    picker = {
+      name = "telescope",
+    },
+
+    ui = { enable = false },
   },
 }
