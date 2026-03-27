@@ -71,13 +71,13 @@ end, { desc = "Obsidian: new note" })
 map("n", "<leader>oZ", function()
   -- Apply zettel.js: renames file to title, sets 02_zet tag, formats structure
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/00_Zettelkasten_Template.md'")
-  vim.defer_fn(function() vim.cmd("checktime") end, 2000)
+  vim.defer_fn(function() vim.cmd("silent! checktime") end, 2000)
 end, { desc = "Obsidian: format zettel" })
 
 map("n", "<leader>oM", function()
   -- Apply MOC template via moc.js
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/01_MOC_Template.md'")
-  vim.defer_fn(function() vim.cmd("checktime") end, 2000)
+  vim.defer_fn(function() vim.cmd("silent! checktime") end, 2000)
 end, { desc = "Obsidian: new MOC" })
 
 -- Delete note
