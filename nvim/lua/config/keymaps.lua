@@ -70,20 +70,14 @@ end, { desc = "Obsidian: new note" })
 -- Templates (run on the active note in Obsidian, reload buffer when done)
 map("n", "<leader>oZ", function()
   -- Apply zettel.js: renames file to title, sets 02_zet tag, formats structure
+  -- Reload is handled by the FocusGained autocmd (silent! checktime) in autocmds.lua
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/00_Zettelkasten_Template.md'")
-  local path = vim.fn.expand("%:p")
-  vim.defer_fn(function()
-    if vim.fn.filereadable(path) == 1 then vim.cmd("checktime") end
-  end, 2000)
 end, { desc = "Obsidian: format zettel" })
 
 map("n", "<leader>oM", function()
   -- Apply MOC template via moc.js
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/01_MOC_Template.md'")
-  local path = vim.fn.expand("%:p")
-  vim.defer_fn(function()
-    if vim.fn.filereadable(path) == 1 then vim.cmd("checktime") end
-  end, 2000)
+
 end, { desc = "Obsidian: new MOC" })
 
 -- Delete note
