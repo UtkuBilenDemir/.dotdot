@@ -56,6 +56,33 @@ function source:get_completions(ctx, callback)
 end
 
 function source:resolve(item, callback)
+  local key = item.label:sub(2) -- strip leading @
+  local f = io.open(bibpath, "r")
+  if not f then callback(item); return end
+  local content = f:read("*all")
+  f:close()
+
+  -- Extract the entry block for this key
+  local entry = content:match("@%w+%s*{%s*" .. key .. "%s*,(.-)\n}")
+               or content:match("@%w+%s*{%s*" .. key .. "%s*,(.-)%s*\n@")
+
+  if entry then
+    local function field(name)
+      return entry:match(name .. "%s*=%s*[{\"](.-)[}\"]")
+          or entry:match(name .. "%s*=%s*(%d+)")
+    end
+    local title  = field("[Tt]itle")
+    local author = field("[Aa]uthor")
+    local year   = field("[Yy]ear")
+    local parts  = {}
+    if title  then table.insert(parts, "**" .. title .. "**") end
+    if author then table.insert(parts, author) end
+    if year   then table.insert(parts, "_" .. year .. "_") end
+    if #parts > 0 then
+      item.documentation = { kind = "markdown", value = table.concat(parts, "\n\n") }
+    end
+  end
+
   callback(item)
 end
 

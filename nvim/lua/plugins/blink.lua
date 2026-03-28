@@ -73,7 +73,11 @@ return {
       ["<Tab>"] = { "fallback" },
       ["<S-Tab>"] = { "fallback" },
       ["<CR>"] = { "accept", "fallback" },
-      ["<S-CR>"] = { "cancel", "fallback" },  -- newline without accepting
+      ["<S-CR>"] = { function(cmp)            -- newline without accepting
+        cmp.cancel()
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, false, true), "n", false)
+        return true
+      end },
       ["<C-z>"] = { "select_and_accept", "fallback" },
       ["<Up>"] = { "select_prev", "fallback" },
       ["<Down>"] = { "select_next", "fallback" },
