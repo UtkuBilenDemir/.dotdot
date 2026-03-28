@@ -55,13 +55,13 @@ map("n", "<leader>on", function()
   local function try_open()
     attempts = attempts + 1
     if vim.fn.filereadable(filepath) == 1 then
-      -- File exists — wait for mtime to stabilize (Templater still writing)
-      local mtime = vim.fn.getftime(filepath)
+      -- File exists — wait for size to stabilize (mtime resolution is 1s on macOS)
+      local size = vim.fn.getfsize(filepath)
       vim.defer_fn(function()
-        if vim.fn.getftime(filepath) == mtime then
+        if vim.fn.getfsize(filepath) == size and size > 0 then
           vim.cmd("edit " .. vim.fn.fnameescape(filepath))
         else
-          try_open() -- still changing, keep polling
+          try_open()
         end
       end, 500)
     elseif attempts < 20 then
