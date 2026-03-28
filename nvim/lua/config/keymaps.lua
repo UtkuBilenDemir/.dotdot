@@ -49,9 +49,11 @@ local function loading_clear()
   vim.api.nvim_echo({ { "" } }, false, {})
 end
 
--- Open filepath once Templater is done (no <% tags remain).
+-- Open filepath once Templater is done:
+--   size must be stable between two consecutive polls AND no <% tags remain.
 local function open_when_ready(filepath)
   local attempts = 0
+  local last_size = -1
   local function poll()
     attempts = attempts + 1
     if attempts > 50 then
@@ -62,8 +64,15 @@ local function open_when_ready(filepath)
       vim.defer_fn(poll, 300)
       return
     end
+    local size = vim.fn.getfsize(filepath)
+    if size <= 0 or size ~= last_size then
+      -- Empty or still changing — record size and wait another cycle
+      last_size = size
+      vim.defer_fn(poll, 300)
+      return
+    end
     local ok, lines = pcall(vim.fn.readfile, filepath)
-    if not ok or #lines == 0 then
+    if not ok then
       vim.defer_fn(poll, 300)
       return
     end
