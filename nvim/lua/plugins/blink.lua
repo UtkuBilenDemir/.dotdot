@@ -21,7 +21,15 @@ return {
     snippets = { preset = "mini_snippets" },
     sources = {
       default = { "snippets", "path", "lsp", "buffer" },
+      per_filetype = {
+        markdown = { "bib", "snippets", "path", "lsp", "buffer" },
+      },
       providers = {
+        bib = {
+          name = "Bib",
+          module = "bib_source",
+          score_offset = 900,
+        },
         lsp = {
           name = "lsp",
           enabled = true,
