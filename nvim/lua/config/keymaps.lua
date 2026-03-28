@@ -78,6 +78,7 @@ local function open_when_ready(filepath)
 end
 
 -- Poll for a file in dir not present in snapshot, then open_when_ready.
+-- Used for new notes (genuinely new filename expected).
 local function open_new_file(dir, snapshot)
   local attempts = 0
   local function poll()
@@ -93,6 +94,32 @@ local function open_new_file(dir, snapshot)
       end
     end
     vim.defer_fn(poll, 300)
+  end
+  vim.defer_fn(poll, 300)
+end
+
+-- Watch oldpath disappear (renamed by template), then open the most recently
+-- modified file in dir. Falls back to checktime if file survives (modified in place).
+local function open_after_rename(dir, oldpath)
+  local attempts = 0
+  local function poll()
+    attempts = attempts + 1
+    if attempts > 50 then
+      -- Fallback: file was probably modified in place, just reload
+      loading_clear()
+      pcall(vim.cmd, "checktime")
+      return
+    end
+    if vim.fn.filereadable(oldpath) == 0 then
+      -- File gone — find newest file in dir
+      local files = vim.fn.globpath(dir, "*.md", false, true)
+      table.sort(files, function(a, b) return vim.fn.getftime(a) > vim.fn.getftime(b) end)
+      if #files > 0 then
+        open_when_ready(files[1])
+      end
+    else
+      vim.defer_fn(poll, 300)
+    end
   end
   vim.defer_fn(poll, 300)
 end
@@ -115,27 +142,21 @@ map("n", "<leader>on", function()
   open_new_file(zetteldir, snapshot)
 end, { desc = "Obsidian: new note" })
 
--- Zettel template: renames + formats the current note via Templater.
--- Snapshots the dir, waits for the renamed file to appear, then opens it.
+-- Zettel template: renames current note via Templater. Watches old path
+-- disappear then opens the newest file in the dir.
 map("n", "<leader>oZ", function()
-  local snapshot = {}
-  for _, f in ipairs(vim.fn.globpath(zetteldir, "*.md", false, true)) do
-    snapshot[f] = true
-  end
+  local oldpath = vim.fn.expand("%:p")
   loading("applying zettel template…")
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/00_Zettelkasten_Template.md'")
-  open_new_file(zetteldir, snapshot)
+  open_after_rename(zetteldir, oldpath)
 end, { desc = "Obsidian: format zettel" })
 
 -- MOC template: same pattern.
 map("n", "<leader>oM", function()
-  local snapshot = {}
-  for _, f in ipairs(vim.fn.globpath(zetteldir, "*.md", false, true)) do
-    snapshot[f] = true
-  end
+  local oldpath = vim.fn.expand("%:p")
   loading("applying MOC template…")
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/01_MOC_Template.md'")
-  open_new_file(zetteldir, snapshot)
+  open_after_rename(zetteldir, oldpath)
 end, { desc = "Obsidian: new MOC" })
 
 -- Delete note
