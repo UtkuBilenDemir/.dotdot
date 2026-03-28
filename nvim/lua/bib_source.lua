@@ -74,9 +74,27 @@ function source:resolve(item, callback)
                or entry:match(name .. "%s*=%s*(%d+)")
       if not val then return nil end
       if val:sub(1,1) == "{" then val = val:sub(2, -2) end -- strip outer {}
+      -- LaTeX accent commands → Unicode
+      local accents = {
+        ["'"] = {a="á",e="é",i="í",o="ó",u="ú",y="ý",A="Á",E="É",I="Í",O="Ó",U="Ú",Y="Ý"},
+        ["`"] = {a="à",e="è",i="ì",o="ò",u="ù",A="À",E="È",I="Ì",O="Ò",U="Ù"},
+        ['"'] = {a="ä",e="ë",i="ï",o="ö",u="ü",A="Ä",E="Ë",I="Ï",O="Ö",U="Ü"},
+        ["^"] = {a="â",e="ê",i="î",o="ô",u="û",A="Â",E="Ê",I="Î",O="Ô",U="Û"},
+        ["~"] = {a="ã",n="ñ",o="õ",A="Ã",N="Ñ",O="Õ"},
+        ["c"] = {c="ç",C="Ç"},
+        ["v"] = {s="š",z="ž",c="č",S="Š",Z="Ž",C="Č"},
+        ["u"] = {a="ă",A="Ă"},
+      }
+      val = val:gsub("\\(['\"`^~cvuH])%s*{?([A-Za-z])}?", function(acc, ch)
+        return (accents[acc] or {})[ch] or ("\\" .. acc .. ch)
+      end)
+      val = val:gsub("\\ss", "ß"):gsub("\\aa", "å"):gsub("\\AA", "Å")
+          :gsub("\\ae", "æ"):gsub("\\AE", "Æ"):gsub("\\oe", "œ"):gsub("\\OE", "Œ")
+          :gsub("\\o",  "ø"):gsub("\\O",  "Ø"):gsub("\\l",  "ł"):gsub("\\L",  "Ł")
       val = val:gsub("\\%a+%s*(%b{})", function(b) return b:sub(2,-2) end) -- \cmd{x}→x
       val = val:gsub("[{}]", "")   -- leftover braces
       val = val:gsub("\\\\", " ")  -- LaTeX line breaks
+      val = val:gsub("\\.", "")    -- remaining escape chars (e.g. \')
       val = val:gsub("~", " ")     -- non-breaking spaces
       val = val:gsub("%s+", " "):match("^%s*(.-)%s*$")
       return val ~= "" and val or nil
