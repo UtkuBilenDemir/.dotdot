@@ -67,9 +67,19 @@ function source:resolve(item, callback)
                or content:match("@%w+%s*{%s*" .. key .. "%s*,(.-)%s*\n@")
 
   if entry then
+    -- Extract a field using balanced-brace matching, then strip LaTeX markup
     local function field(name)
-      return entry:match(name .. "%s*=%s*[{\"](.-)[}\"]")
-          or entry:match(name .. "%s*=%s*(%d+)")
+      local val = entry:match(name .. "%s*=%s*(%b{})")
+               or entry:match(name .. "%s*=%s*\"(.-)\"")
+               or entry:match(name .. "%s*=%s*(%d+)")
+      if not val then return nil end
+      if val:sub(1,1) == "{" then val = val:sub(2, -2) end -- strip outer {}
+      val = val:gsub("\\%a+%s*(%b{})", function(b) return b:sub(2,-2) end) -- \cmd{x}→x
+      val = val:gsub("[{}]", "")   -- leftover braces
+      val = val:gsub("\\\\", " ")  -- LaTeX line breaks
+      val = val:gsub("~", " ")     -- non-breaking spaces
+      val = val:gsub("%s+", " "):match("^%s*(.-)%s*$")
+      return val ~= "" and val or nil
     end
     local title  = field("[Tt]itle")
     local author = field("[Aa]uthor")
@@ -77,7 +87,7 @@ function source:resolve(item, callback)
     local parts  = {}
     if title  then table.insert(parts, "**" .. title .. "**") end
     if author then table.insert(parts, author) end
-    if year   then table.insert(parts, "_" .. year .. "_") end
+    if year   then table.insert(parts, year) end
     if #parts > 0 then
       item.documentation = { kind = "markdown", value = table.concat(parts, "\n\n") }
     end
