@@ -6,5 +6,5 @@
 -- renamed externally (e.g. Obsidian Templater renames notes after applying).
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = vim.api.nvim_create_augroup("lazyvim_checktime", { clear = true }),
-  command = "silent! checktime",
+  callback = function() pcall(vim.cmd, "checktime") end,
 })
