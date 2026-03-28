@@ -72,31 +72,12 @@ local function open_newest_after(dir, since, buf, delay_ms)
       end
       local f = newest_after(dir, since)
       if f then
-        -- Secondary guard: if Templater is still processing, wait up to 6s more
-        local function open_when_clean(attempts)
-          attempts = attempts or 0
-          if attempts > 12 then
-            local old_path = vim.api.nvim_buf_get_name(buf)
-            unlock(buf)
-            vim.cmd("edit " .. vim.fn.fnameescape(f))
-            if vim.fn.filereadable(old_path) == 0 and vim.api.nvim_buf_is_valid(buf) then
-              pcall(vim.cmd, "bdelete " .. buf)
-            end
-            return
-          end
-          local ok, lines = pcall(vim.fn.readfile, f)
-          if ok and #lines > 0 and table.concat(lines, "\n"):find("<%", 1, true) then
-            vim.defer_fn(function() open_when_clean(attempts + 1) end, 500)
-            return
-          end
-          local old_path = vim.api.nvim_buf_get_name(buf)
-          unlock(buf)
-          vim.cmd("edit " .. vim.fn.fnameescape(f))
-          if vim.fn.filereadable(old_path) == 0 and vim.api.nvim_buf_is_valid(buf) then
-            pcall(vim.cmd, "bdelete " .. buf)
-          end
+        local old_path = vim.api.nvim_buf_get_name(buf)
+        unlock(buf)
+        vim.cmd("edit " .. vim.fn.fnameescape(f))
+        if vim.fn.filereadable(old_path) == 0 and vim.api.nvim_buf_is_valid(buf) then
+          pcall(vim.cmd, "bdelete " .. buf)
         end
-        open_when_clean()
       else
         vim.defer_fn(poll, 500)
       end
