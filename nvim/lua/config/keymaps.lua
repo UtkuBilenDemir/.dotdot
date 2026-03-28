@@ -50,7 +50,7 @@ end
 -- Find the most recently modified .md file in dir that was touched after
 -- `since` (os.time() value). Returns nil if none found yet.
 local function newest_after(dir, since)
-  local best, best_time = nil, since
+  local best, best_time = nil, since - 1
   for _, f in ipairs(vim.fn.globpath(dir, "*.md", false, true)) do
     local t = vim.fn.getftime(f)
     if t > best_time then best_time = t; best = f end
