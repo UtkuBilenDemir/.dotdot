@@ -117,6 +117,11 @@ map("n", "<leader>oM", function()
   open_newest_after(zetteldir, since, buf, 4000)
 end, { desc = "Obsidian: new MOC" })
 
+-- Reload current buffer from disk (pick up changes made in Obsidian)
+map("n", "<leader>or", function()
+  vim.cmd("edit!")
+end, { desc = "Obsidian: reload from disk" })
+
 -- Delete note
 map("n", "<leader>oD", function()
   local path = vim.fn.expand("%:p")
