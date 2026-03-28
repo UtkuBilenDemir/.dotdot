@@ -55,16 +55,15 @@ map("n", "<leader>on", function()
   local function try_open()
     attempts = attempts + 1
     if vim.fn.filereadable(filepath) == 1 then
-      -- File exists — wait for size to stabilize (mtime resolution is 1s on macOS)
-      local size = vim.fn.getfsize(filepath)
-      vim.defer_fn(function()
-        if vim.fn.getfsize(filepath) == size and size > 0 then
-          vim.cmd("edit " .. vim.fn.fnameescape(filepath))
-        else
-          try_open()
-        end
-      end, 500)
-    elseif attempts < 20 then
+      local lines = vim.fn.readfile(filepath)
+      local raw = table.concat(lines, "\n")
+      if raw:find("<%") then
+        -- Templater hasn't processed the file yet, keep polling
+        vim.defer_fn(try_open, 300)
+      else
+        vim.cmd("edit " .. vim.fn.fnameescape(filepath))
+      end
+    elseif attempts < 30 then
       vim.defer_fn(try_open, 300)
     else
       vim.notify("Timed out waiting for note: " .. filepath, vim.log.levels.WARN)
