@@ -40,6 +40,12 @@ function source:get_trigger_characters()
   return { "@" }
 end
 
+function source:should_show_items(ctx, items)
+  local col = ctx.cursor[2]
+  local line = vim.api.nvim_buf_get_lines(ctx.bufnr, ctx.cursor[1] - 1, ctx.cursor[1], false)[1] or ""
+  return line:sub(1, col):match("@%S*$") ~= nil
+end
+
 function source:get_completions(ctx, callback)
   local ok, items = pcall(parse_bib)
   callback({
