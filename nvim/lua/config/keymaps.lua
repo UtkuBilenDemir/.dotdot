@@ -30,59 +30,112 @@ map("n", "gH", function() follow_link("hsplit") end, { desc = "Follow link in hs
 
 -- All Obsidian keymaps live under <leader>o.
 -- URI-based commands use `open -g` to keep Obsidian in the background.
--- Commands that modify the active note trigger `checktime` after a delay
--- so Neovim reloads the buffer once Templater has finished writing.
+--
+-- For commands that create or modify notes via Templater:
+--   1. Snapshot existing files in the vault dir before triggering.
+--   2. Show a loading message so the user knows to wait.
+--   3. Poll every 300ms: wait for a new/changed file whose content no longer
+--      contains Templater tags (<%) — that signals Templater is done.
+--   4. Open the file and clear the loading message.
+
+local vault    = "/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome"
+local zetteldir = vault .. "/02_zettelkasten"
+
+local function loading(msg)
+  vim.api.nvim_echo({ { "  Obsidian: " .. msg .. "  ", "WarningMsg" } }, false, {})
+end
+
+local function loading_clear()
+  vim.api.nvim_echo({ { "" } }, false, {})
+end
+
+-- Open filepath once Templater is done (no <% tags remain).
+local function open_when_ready(filepath)
+  local attempts = 0
+  local function poll()
+    attempts = attempts + 1
+    if attempts > 50 then
+      vim.api.nvim_echo({ { "  Obsidian: timed out waiting for Templater", "ErrorMsg" } }, false, {})
+      return
+    end
+    if vim.fn.filereadable(filepath) == 0 then
+      vim.defer_fn(poll, 300)
+      return
+    end
+    local ok, lines = pcall(vim.fn.readfile, filepath)
+    if not ok or #lines == 0 then
+      vim.defer_fn(poll, 300)
+      return
+    end
+    if table.concat(lines, "\n"):find("<%", 1, true) then
+      vim.defer_fn(poll, 300)
+    else
+      loading_clear()
+      vim.cmd("edit " .. vim.fn.fnameescape(filepath))
+    end
+  end
+  vim.defer_fn(poll, 300)
+end
+
+-- Poll for a file in dir not present in snapshot, then open_when_ready.
+local function open_new_file(dir, snapshot)
+  local attempts = 0
+  local function poll()
+    attempts = attempts + 1
+    if attempts > 50 then
+      vim.api.nvim_echo({ { "  Obsidian: timed out waiting for new file", "ErrorMsg" } }, false, {})
+      return
+    end
+    for _, f in ipairs(vim.fn.globpath(dir, "*.md", false, true)) do
+      if not snapshot[f] then
+        open_when_ready(f)
+        return
+      end
+    end
+    vim.defer_fn(poll, 300)
+  end
+  vim.defer_fn(poll, 300)
+end
 
 -- Navigation
 map("n", "<leader>oo", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Obsidian: quick switch" })
 map("n", "<leader>op", function()
-  -- Open the current buffer's note in the Obsidian app (brings Obsidian to focus)
-  local vault = "/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome"
   local filepath = vim.fn.expand("%:p"):gsub(vim.pesc(vault .. "/"), "")
   vim.fn.system("open 'obsidian://adv-uri?vault=rhizome&filepath=" .. filepath .. "'")
 end, { desc = "Obsidian: open in Obsidian" })
 
--- New note
--- Triggers zk-prefixer via Advanced URI (creates timestamped note in
--- 02_zettelkasten with First-Template applied by Templater), then polls
--- until the file exists before opening it in Neovim.
+-- New note: trigger zk-prefixer, wait for Templater to finish, open result.
 map("n", "<leader>on", function()
-  local vault = "/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome"
-  local id = os.date("%Y%m%d-%H%M%S")
-  local filepath = vault .. "/02_zettelkasten/" .. id .. ".md"
-  vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=zk-prefixer'")
-  local attempts = 0
-  local function try_open()
-    attempts = attempts + 1
-    if vim.fn.filereadable(filepath) == 1 then
-      local lines = vim.fn.readfile(filepath)
-      local raw = table.concat(lines, "\n")
-      if raw:find("<%", 1, true) then
-        -- Templater hasn't processed the file yet, keep polling
-        vim.defer_fn(try_open, 300)
-      else
-        vim.cmd("edit " .. vim.fn.fnameescape(filepath))
-      end
-    elseif attempts < 30 then
-      vim.defer_fn(try_open, 300)
-    else
-      vim.notify("Timed out waiting for note: " .. filepath, vim.log.levels.WARN)
-    end
+  local snapshot = {}
+  for _, f in ipairs(vim.fn.globpath(zetteldir, "*.md", false, true)) do
+    snapshot[f] = true
   end
-  vim.defer_fn(try_open, 300)
+  loading("creating note…")
+  vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=zk-prefixer'")
+  open_new_file(zetteldir, snapshot)
 end, { desc = "Obsidian: new note" })
 
--- Templates (run on the active note in Obsidian, reload buffer when done)
+-- Zettel template: renames + formats the current note via Templater.
+-- Snapshots the dir, waits for the renamed file to appear, then opens it.
 map("n", "<leader>oZ", function()
-  -- Apply zettel.js: renames file to title, sets 02_zet tag, formats structure
-  -- Reload is handled by the FocusGained autocmd (silent! checktime) in autocmds.lua
+  local snapshot = {}
+  for _, f in ipairs(vim.fn.globpath(zetteldir, "*.md", false, true)) do
+    snapshot[f] = true
+  end
+  loading("applying zettel template…")
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/00_Zettelkasten_Template.md'")
+  open_new_file(zetteldir, snapshot)
 end, { desc = "Obsidian: format zettel" })
 
+-- MOC template: same pattern.
 map("n", "<leader>oM", function()
-  -- Apply MOC template via moc.js
+  local snapshot = {}
+  for _, f in ipairs(vim.fn.globpath(zetteldir, "*.md", false, true)) do
+    snapshot[f] = true
+  end
+  loading("applying MOC template…")
   vim.fn.system("open -g 'obsidian://adv-uri?vault=rhizome&commandid=templater-obsidian:08_templates/01_MOC_Template.md'")
-
+  open_new_file(zetteldir, snapshot)
 end, { desc = "Obsidian: new MOC" })
 
 -- Delete note
