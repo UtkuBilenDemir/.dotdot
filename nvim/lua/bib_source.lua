@@ -21,8 +21,9 @@ local function parse_bib()
     if key ~= "" then
       table.insert(items, {
         label = "@" .. key,
+        filterText = key,   -- blink matches typed text after @ against this
         insertText = "@" .. key,
-        kind = 9, -- LSP Reference kind
+        kind = 9,
       })
     end
   end
@@ -31,7 +32,7 @@ local function parse_bib()
   return items
 end
 
-function source.new()
+function source.new(opts, config)
   return setmetatable({}, { __index = source })
 end
 

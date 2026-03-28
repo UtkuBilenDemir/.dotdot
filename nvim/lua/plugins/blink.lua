@@ -22,7 +22,7 @@ return {
     sources = {
       default = { "snippets", "path", "lsp", "buffer" },
       per_filetype = {
-        markdown = { "bib", "snippets", "path", "lsp", "buffer" },
+        markdown = { inherit_defaults = true, "bib" },
       },
       providers = {
         bib = {
