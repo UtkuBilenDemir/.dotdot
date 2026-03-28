@@ -22,7 +22,7 @@ local function parse_bib()
       table.insert(items, {
         label = "@" .. key,
         insertText = "@" .. key,
-        kind = require("blink.cmp.types").CompletionItemKind.Reference,
+        kind = 9, -- LSP Reference kind
       })
     end
   end
@@ -46,6 +46,10 @@ function source:get_completions(ctx, callback)
     is_incomplete_forward = false,
     is_incomplete_backward = false,
   })
+end
+
+function source:resolve(item, callback)
+  callback(item)
 end
 
 return source
