@@ -72,8 +72,13 @@ local function open_newest_after(dir, since, buf, delay_ms)
       end
       local f = newest_after(dir, since)
       if f then
+        local old_path = vim.api.nvim_buf_get_name(buf)
         unlock(buf)
         vim.cmd("edit " .. vim.fn.fnameescape(f))
+        -- If the old buffer's file was renamed/deleted, clean it up
+        if vim.fn.filereadable(old_path) == 0 and vim.api.nvim_buf_is_valid(buf) then
+          pcall(vim.cmd, "bdelete " .. buf)
+        end
       else
         vim.defer_fn(poll, 500)
       end
