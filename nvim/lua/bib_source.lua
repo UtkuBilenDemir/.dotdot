@@ -2,7 +2,7 @@
 -- Triggered by '@' in markdown buffers.
 
 local source = {}
-local bibpath = vim.fn.expand("~/biblotheca/bib.bib")
+local bibpath = vim.fn.expand("~/Bibliotheca/bib.bib")
 local cached_items = nil
 local cached_mtime = -1
 
