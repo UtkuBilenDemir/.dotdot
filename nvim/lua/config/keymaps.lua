@@ -57,7 +57,7 @@ map("n", "<leader>on", function()
     if vim.fn.filereadable(filepath) == 1 then
       local lines = vim.fn.readfile(filepath)
       local raw = table.concat(lines, "\n")
-      if raw:find("<%") then
+      if raw:find("<%", 1, true) then
         -- Templater hasn't processed the file yet, keep polling
         vim.defer_fn(try_open, 300)
       else
