@@ -41,49 +41,61 @@ map("n", "gH", function() follow_link("hsplit") end, { desc = "Follow link in hs
 local vault    = "/Users/ubd/Library/Mobile Documents/iCloud~md~obsidian/Documents/rhizome"
 local zetteldir = vault .. "/02_zettelkasten"
 
+local lock_buf = nil
+
 local function loading(msg)
   vim.api.nvim_echo({ { "  Obsidian: " .. msg .. "  ", "WarningMsg" } }, false, {})
+  -- Lock current buffer so user can't edit while waiting
+  lock_buf = vim.api.nvim_get_current_buf()
+  vim.bo[lock_buf].modifiable = false
 end
 
 local function loading_clear()
   vim.api.nvim_echo({ { "" } }, false, {})
+  if lock_buf and vim.api.nvim_buf_is_valid(lock_buf) then
+    pcall(function() vim.bo[lock_buf].modifiable = true end)
+  end
+  lock_buf = nil
 end
 
--- Open filepath once Templater is done:
---   size must be stable between two consecutive polls AND no <% tags remain.
+-- Open filepath once Templater is done.
+-- Waits 1.5s minimum (Templater needs time to write the raw template),
+-- then polls until size is stable and no <% tags remain.
 local function open_when_ready(filepath)
-  local attempts = 0
-  local last_size = -1
-  local function poll()
-    attempts = attempts + 1
-    if attempts > 50 then
-      vim.api.nvim_echo({ { "  Obsidian: timed out waiting for Templater", "ErrorMsg" } }, false, {})
-      return
+  vim.defer_fn(function()
+    local attempts = 0
+    local last_size = -1
+    local function poll()
+      attempts = attempts + 1
+      if attempts > 40 then
+        loading_clear()
+        vim.api.nvim_echo({ { "  Obsidian: timed out waiting for Templater", "ErrorMsg" } }, false, {})
+        return
+      end
+      if vim.fn.filereadable(filepath) == 0 then
+        vim.defer_fn(poll, 300)
+        return
+      end
+      local size = vim.fn.getfsize(filepath)
+      if size <= 0 or size ~= last_size then
+        last_size = size
+        vim.defer_fn(poll, 300)
+        return
+      end
+      local ok, lines = pcall(vim.fn.readfile, filepath)
+      if not ok then
+        vim.defer_fn(poll, 300)
+        return
+      end
+      if table.concat(lines, "\n"):find("<%", 1, true) then
+        vim.defer_fn(poll, 300)
+      else
+        loading_clear()
+        vim.cmd("edit " .. vim.fn.fnameescape(filepath))
+      end
     end
-    if vim.fn.filereadable(filepath) == 0 then
-      vim.defer_fn(poll, 300)
-      return
-    end
-    local size = vim.fn.getfsize(filepath)
-    if size <= 0 or size ~= last_size then
-      -- Empty or still changing — record size and wait another cycle
-      last_size = size
-      vim.defer_fn(poll, 300)
-      return
-    end
-    local ok, lines = pcall(vim.fn.readfile, filepath)
-    if not ok then
-      vim.defer_fn(poll, 300)
-      return
-    end
-    if table.concat(lines, "\n"):find("<%", 1, true) then
-      vim.defer_fn(poll, 300)
-    else
-      loading_clear()
-      vim.cmd("edit " .. vim.fn.fnameescape(filepath))
-    end
-  end
-  vim.defer_fn(poll, 300)
+    poll()
+  end, 1500)
 end
 
 -- Poll for a file in dir not present in snapshot, then open_when_ready.
